@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shopMe - Your Favorite Online Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #1e40af;
+            --light-blue: #93c5fd;
+            --background: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+        
+        .cart-count {
+            top: -8px;
+            right: -8px;
+        }
+        
+        .price-tag {
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-shopping-cart text-2xl text-blue-600"></i>
+                <h1 class="text-2xl font-bold text-blue-600">shopMe</h1>
+            </div>
+            
+            <div class="hidden md:flex flex-1 mx-8">
+                <input type="text" placeholder="Search for products..." class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <nav class="flex items-center space-x-6">
+                <a href="#" class="text-gray-700 hover:text-blue-600">Home</a>
+                <a href="#" class="text-gray-700 hover:text-blue-600">Categories</a>
+                <a href="#" class="text-gray-700 hover:text-blue-600">Deals</a>
+                <a href="#" class="text-gray-700 hover:text-blue-600">Contact</a>
+                <div class="relative">
+                    <i class="fas fa-shopping-cart text-xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
+                    <span class="cart-count absolute bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                </div>
+                <i class="fas fa-user-circle text-xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
+            </nav>
+            
+            <button class="md:hidden text-gray-700">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-500 to-blue-700 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Welcome to shopMe</h1>
+            <p class="text-xl mb-8">Your one-stop shop for all your needs at unbeatable prices</p>
+            <button class="bg-white text-blue-600 font-bold px-8 py-3 rounded-lg hover:bg-gray-100 transition duration-300">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-8 text-gray-800">Shop by Categories</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition duration-300">
+                    <img src="https://placehold.co/600x400" alt="Modern electronics devices including smartphones, laptops, and headphones" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800">Electronics</h3>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition duration-300">
+                    <img src="https://placehold.co/600x400" alt="Stylish clothing items displayed on a rack with mannequins in background" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800">Fashion</h3>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition duration-300">
+                    <img src="https://placehold.co/600x400" alt="Decorative home items including candles, cushions and vases arranged beautifully" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800">Home Decor</h3>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition duration-300">
+                    <img src="https://placehold.co/600x400" alt="Fresh groceries including colorful fruits and vegetables arranged in baskets" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800">Groceries</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Listing -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800">Popular Products</h2>
+                <div class="flex space-x-2">
+                    <button class="px-4 py-2 bg-white text-blue-600 rounded-lg border border-blue-600 hover:bg-blue-50">Filter</button>
+                    <button class="px-4 py-2 bg-white text-blue-600 rounded-lg border border-blue-600 hover:bg-blue-50">Sort</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Product 1 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Latest iPhone model with premium gold finish and clear display" class="w-full h-48 object-contain">
+                        <span class="absolute top-2 left-2 bg-yellow-400 text-xs px-2 py-1 rounded">30% OFF</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">iPhone 14 Pro</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.5)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹109,999</span>
+                            <span class="text-sm text-gray-500 line-through ml-2">₹129,999</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Wireless Bluetooth headphones with noise cancellation feature" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Wireless Headphones</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.0)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹5,999</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Smartwatch with fitness tracking features and heart rate monitor" class="w-full h-48 object-contain">
+                        <span class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">BEST SELLER</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Smartwatch Pro</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(5.0)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹12,499</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Premium leather wallet with multiple card slots and RFID protection" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Leather Wallet</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.5)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹2,499</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Compact portable blender for smoothies with four stainless steel blades" class="w-full h-48 object-contain">
+                        <span class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">ECO FRIENDLY</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Portable Blender</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.0)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹3,299</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Soft cotton t-shirt with premium print quality and slim fit" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Premium T-Shirt</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(3.5)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹899</span>
+                            <span class="text-sm text-gray-500 line-through ml-2">₹1,299</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 7 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Wireless charging stand compatible with multiple smartphone brands" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Wireless Charger</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.5)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹2,199</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 8 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Organic face cream with natural ingredients in elegant glass container" class="w-full h-48 object-contain">
+                        <span class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">NATURAL</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Organic Face Cream</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.0)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹1,799</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 9 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Leather-bound notebook with premium paper quality and elastic closure" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Premium Notebook</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.0)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹1,299</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 10 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Modern backpack with laptop compartment and waterproof material" class="w-full h-48 object-contain">
+                        <span class="absolute top-2 left-2 bg-yellow-400 text-xs px-2 py-1 rounded">LIMITED STOCK</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Travel Backpack</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.5)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹2,999</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 11 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="High-speed HDMI cable with gold-plated connectors for premium signal" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">HDMI 2.1 Cable</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.0)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹1,099</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 12 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Ceramic coffee mug with elegant design and comfortable handle" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Designer Coffee Mug</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(3.5)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹699</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 13 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Compact power bank with multiple charging ports and LED display" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">20000mAh Power Bank</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(5.0)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹2,599</span>
+                            <span class="text-sm text-gray-500 line-through ml-2">₹3,299</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 14 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Air purifier with HEPA filter and smart connectivity features" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Smart Air Purifier</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.5)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹12,999</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 15 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Premium wireless gaming mouse with ergonomic design and RGB lighting" class="w-full h-48 object-contain">
+                        <span class="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">NEW</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Gaming Mouse</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.0)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹3,999</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 16 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Resistance bands set with different tension levels for home workouts" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Resistance Bands Set</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(3.5)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹1,499</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 17 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Yoga mat with non-slip surface and carrying strap for easy transport" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Premium Yoga Mat</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.0)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹2,199</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 18 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Set of three kitchen knives with wooden handles and premium steel blades" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Kitchen Knife Set</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.5)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹4,599</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 19 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="Digital kitchen scale with tempered glass platform and LCD display" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">Digital Kitchen Scale</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.0)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹1,799</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 20 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400" alt="External SSD drive with high-speed USB-C connection and shockproof design" class="w-full h-48 object-contain">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-gray-800 mb-1">1TB SSD Drive</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.5)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-lg font-bold text-blue-600">₹7,999</span>
+                            <span class="text-sm text-gray-500 line-through ml-2">₹9,999</span>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <button class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300">Load More Products</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-8 text-gray-800">Why Choose shopMe</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center px-4">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shield-alt text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Secure Payments</h3>
+                    <p class="text-gray-600">All transactions are 100% secure with end-to-end encryption</p>
+                </div>
+                
+                <div class="text-center px-4">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-truck text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Fast Delivery</h3>
+                    <p class="text-gray-600">Get your order delivered in 2-4 business days</p>
+                </div>
+                
+                <div class="text-center px-4">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-exchange-alt text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Easy Returns</h3>
+                    <p class="text-gray-600">30-day return policy with no questions asked</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-12 bg-blue-50">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Subscribe to Our Newsletter</h2>
+            <p class="mb-8 text-gray-600 max-w-2xl mx-auto">Get the latest deals and exclusive offers delivered to your inbox</p>
+            <div class="flex flex-col md:flex-row justify-center max-w-md md:max-w-xl mx-auto">
+                <input type="email" placeholder="Your email address" class="px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2 md:mb-0 md:mr-2 flex-grow">
+                <button class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">Subscribe</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-shopping-cart text-2xl text-blue-400"></i>
+                        <h3 class="text-xl font-bold text-white">shopMe</h3>
+                    </div>
+                    <p class="text-gray-400">Your favorite online store for quality products at affordable prices.</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Products</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">My Account</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Order Tracking</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Wishlist</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+                    <address class="not-italic text-gray-400 space-y-2">
+                        <p>123 Main Street, Mumbai</p>
+                        <p>Maharashtra 400001, India</p>
+                        <p>Phone: +91 9876543210</p>
+                        <p>Email: support@shopme.com</p>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 shopMe. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <img src="https://placehold.co/50x30" alt="Visa payment method logo" class="h-8">
+                    <img src="https://placehold.co/50x30" alt="Mastercard payment method logo" class="h-8">
+                    <img src="https://placehold.co/50x30" alt="PayPal payment method logo" class="h-8">
+                    <img src="https://placehold.co/50x30" alt="UPI payment method logo" class="h-8">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="fixed top-0 right-0 w-full md:w-96 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto" id="cartSidebar">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Your Cart</h3>
+                <button class="text-gray-500 hover:text-gray-700" id="closeCart">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-4 mb-8" id="cartItems">
+                <!-- Cart items will be added here dynamically -->
+                <p class="text-center text-gray-500">Your cart is empty</p>
+            </div>
+            
+            <div class="border-t pt-4 mb-6">
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Subtotal</span>
+                    <span class="font-bold">₹0</span>
+                </div>
+                <div class="flex justify-between mb-4">
+                    <span class="text-gray-600">Shipping</span>
+                    <span class="font-bold">Free</span>
+                </div>
+                <div class="flex justify-between text-lg font-bold">
+                    <span>Total</span>
+                    <span>₹0</span>
+                </div>
+            </div>
+            
+            <button class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="fixed top-0 left-0 w-full h-full bg-white shadow-lg transform -translate-x-full transition-transform duration-300 z-50 overflow-y-auto" id="mobileMenu">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-shopping-cart text-2xl text-blue-600"></i>
+                    <h3 class="text-xl font-bold">shopMe</h3>
+                </div>
+                <button class="text-gray-500 hover:text-gray-700" id="closeMenu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <nav class="space-y-4">
+                <a href="#" class="block py-2 px-4 bg-blue-50 text-blue-600 rounded-lg">Home</a>
+                <a href="#" class="block py-2 px-4 hover:bg-gray-100 rounded-lg">Categories</a>
+                <a href="#" class="block py-2 px-4 hover:bg-gray-100 rounded-lg">Deals</a>
+                <a href="#" class="block py-2 px-4 hover:bg-gray-100 rounded-lg">Contact</a>
+                <div class="flex items-center py-2 px-4 hover:bg-gray-100 rounded-lg cursor-pointer">
+                    <i class="fas fa-shopping-cart mr-2"></i>
+                    <span>Cart</span>
+                    <span class="cart-count ml-auto bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                </div>
+                <div class="flex items-center py-2 px-4 hover:bg-gray-100 rounded-lg cursor-pointer">
+                    <i class="fas fa-user-circle mr-2"></i>
+                    <span>Account</span>
+                </div>
+            </nav>
+            
+            <div class="mt-8">
+                <h4 class="font-bold mb-2">Subscribe</h4>
+                <div class="flex">
+                    <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow">
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700">Go</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle mobile menu
+        document.querySelector('button.md\\:hidden').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.remove('-translate-x-full');
+        });
+        
+        document.getElementById('closeMenu').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.add('-translate-x-full');
+        });
+        
+        // Toggle cart sidebar
+        document.querySelector('.relative > i.fa-shopping-cart').addEventListener('click', function() {
+            document.getElementById('cartSidebar').classList.remove('translate-x-full');
+        });
+        
+        document.getElementById('closeCart').addEventListener('click', function() {
+            document.getElementById('cartSidebar').classList.add('translate-x-full');
+        });
+        
+        // Add to cart functionality
+        const addToCartButtons = document.querySelectorAll('button.bg-blue-600');
+        const cartCount = document.querySelector('.cart-count');
+        let itemCount = 0;
+        
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                itemCount++;
+                cartCount.textContent = itemCount;
+                
+                // Update all cart count elements
+                document.querySelectorAll('.cart-count').forEach(el => {
+                    el.textContent = itemCount;
+                });
+                
+                // Show success message
+                alert('Item added to cart successfully!');
+            });
+        });
+    </script>
+</body>
+</html>
